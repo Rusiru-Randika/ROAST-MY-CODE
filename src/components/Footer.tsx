@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
         {/* Right actions */}
         <div className="flex items-center gap-4 text-[9px] sm:text-[10px]">
           <a
-            href="https://github.com"
+            href="https://github.com/Rusiru-Randika/ROAST-MY-CODE"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-cyan-400 transition-colors flex items-center gap-1.5 text-slate-300"

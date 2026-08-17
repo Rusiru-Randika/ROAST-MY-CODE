@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
-            href="https://github.com"
+            href="https://github.com/Rusiru-Randika/ROAST-MY-CODE"
             target="_blank"
             rel="noopener noreferrer"
             className="px-2.5 py-1.5 sm:px-3 sm:py-2 bg-[#1c1c3a] hover:bg-pink-600 text-white font-pixel text-[9px] sm:text-[10px] border-2 sm:border-3 border-black shadow-pixel-sm hover:shadow-pixel-pink transition-all flex items-center gap-1.5"
