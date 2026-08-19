@@ -16,10 +16,10 @@ const GEMINI_MODELS = [
   'gemini-pro-latest'
 ];
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': '*',
-  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+// Note: When CORS is enabled in AWS Lambda Function URL configuration,
+// AWS automatically injects Access-Control-Allow-Origin headers.
+// We only specify Content-Type here to prevent the duplicate '*, *' CORS browser error.
+const RESPONSE_HEADERS = {
   'Content-Type': 'application/json',
 };
 
@@ -93,7 +93,7 @@ export const handler = async (event) => {
   if (method === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers: CORS_HEADERS,
+      headers: RESPONSE_HEADERS,
       body: JSON.stringify({ message: 'CORS preflight OK' }),
     };
   }
@@ -102,7 +102,7 @@ export const handler = async (event) => {
     if (!event.body) {
       return {
         statusCode: 400,
-        headers: CORS_HEADERS,
+        headers: RESPONSE_HEADERS,
         body: JSON.stringify({ success: false, error: 'Request body is empty' }),
       };
     }
@@ -120,7 +120,7 @@ export const handler = async (event) => {
     if (!code || typeof code !== 'string' || !code.trim()) {
       return {
         statusCode: 400,
-        headers: CORS_HEADERS,
+        headers: RESPONSE_HEADERS,
         body: JSON.stringify({ success: false, error: 'Source code is required' }),
       };
     }
@@ -128,7 +128,7 @@ export const handler = async (event) => {
     if (code.length > 10000) {
       return {
         statusCode: 400,
-        headers: CORS_HEADERS,
+        headers: RESPONSE_HEADERS,
         body: JSON.stringify({ success: false, error: 'Source code exceeds maximum length of 10,000 characters' }),
       };
     }
@@ -229,7 +229,7 @@ export const handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: CORS_HEADERS,
+      headers: RESPONSE_HEADERS,
       body: JSON.stringify({
         success: true,
         result: structuredResult,
@@ -240,7 +240,7 @@ export const handler = async (event) => {
     console.error('Error in Roast My Code Lambda:', error);
     return {
       statusCode: 500,
-      headers: CORS_HEADERS,
+      headers: RESPONSE_HEADERS,
       body: JSON.stringify({
         success: false,
         error: 'The roasting server caught fire. Please try again in a moment.',
